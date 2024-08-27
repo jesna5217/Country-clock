@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: black;">
+    <div class="container">
+        <div class="question ">
+        <h1 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif" >DIGITAL CLOCK</h1>
+<div class="d-flex justify-content-around "> 
+    <input class="name me-3" id="country" type="text" placeholder="Enter country name">
+    <button type="button" class="btn btn-dark me-3"  onclick="countryTime()">SEARCH</button>
+    <button type="button" class="btn btn-dark" onclick="resetClock()">RESET</button>
+   </div>
+
+</div>
+<div class="clock">
+<div class="bar"></div>
+<div class="outline">
+<div class="line  d-flex justify-content-center text-align-center">
+    
+   <div class="time">
+    <p style="color: rgb(217, 205, 205);  font-family: 'Orbitron', sans-serif;" id="time">00:00 00</p>
+    </div>
+    
+</div>
+
+</div>
+
+<div class="stand d-flex justify-content-around">
+<div class="stand-one"></div>
+<div class="stand-two"></div>
+</div>
+</div>
+    </div>
+
+
+
+    <script>
+
+const countryTimezones = {
+    "UNITED STATES": "America/New_York",
+    "CANADA": "America/Toronto",
+    "UNITED KINGDOM": "Europe/London",
+    "AUSTRALIA": "Australia/Sydney",
+    "INDIA": "Asia/Kolkata",
+    "GERMANY": "Europe/Berlin",
+    "FRANCE": "Europe/Paris",
+    "BRAZIL": "America/Sao_Paulo",
+    "RUSSIA": "Europe/Moscow",
+    "CHINA": "Asia/Shanghai",
+    "JAPAN": "Asia/Tokyo",
+    "SOUTH KOREA": "Asia/Seoul",
+    "SOUTH AFRICA": "Africa/Johannesburg",
+    "MEXICO": "America/Mexico_City",
+    "ITALY": "Europe/Rome",
+    "SPAIN": "Europe/Madrid",
+    "ARGENTINA": "America/Argentina/Buenos_Aires",
+    "INDONESIA": "Asia/Jakarta",
+    "TURKEY": "Europe/Istanbul",
+    "SAUDI ARABIA": "Asia/Riyadh",
+    "EGYPT": "Africa/Cairo",
+    "NIGERIA": "Africa/Lagos",
+    "PAKISTAN": "Asia/Karachi",
+    "BANGLADESH": "Asia/Dhaka",
+    "VIETNAM": "Asia/Ho_Chi_Minh",
+    "THAILAND": "Asia/Bangkok",
+    "PHILIPPINES": "Asia/Manila",
+    "MALAYSIA": "Asia/Kuala_Lumpur",
+    "SINGAPORE": "Asia/Singapore",
+    "NEW ZEALAND": "Pacific/Auckland",
+    "ISRAEL": "Asia/Jerusalem",
+    "UNITED ARAB EMIRATES": "Asia/Dubai",
+    "SWITZERLAND": "Europe/Zurich",
+    "NETHERLANDS": "Europe/Amsterdam",
+    "BELGIUM": "Europe/Brussels",
+    "AUSTRIA": "Europe/Vienna",
+    "SWEDEN": "Europe/Stockholm",
+    "NORWAY": "Europe/Oslo",
+    "DENMARK": "Europe/Copenhagen",
+    "POLAND": "Europe/Warsaw",
+    "GREECE": "Europe/Athens",
+    "PORTUGAL": "Europe/Lisbon",
+    "CZECH REPUBLIC": "Europe/Prague",
+    "HUNGARY": "Europe/Budapest",
+    "FINLAND": "Europe/Helsinki",
+    "IRELAND": "Europe/Dublin",
+    "UKRAINE": "Europe/Kiev",
+    "ROMANIA": "Europe/Bucharest"
+};
+
+
+    
+ 
+let clockInterval;//globally available
+// clockInterval Variable: This keeps track of the interval ID to clear it if needed.
+
+        function countryTime() {
+            let country = document.getElementById('country').value.toUpperCase();
+            let timezone = countryTimezones[country];
+            if (timezone) {
+                if (clockInterval) clearInterval(clockInterval); // Clear existing interval
+                updateClock(timezone);
+                clockInterval = setInterval(() => updateClock(timezone), 1000);
+            } else {
+                alert('Country not found');
+                resetClock();
+            }
+        }
+
+        function updateClock(timezone) {
+            document.getElementById('time').innerHTML = new Date().toLocaleString('en-US', {
+                timeZone: timezone,
+                timeStyle: 'medium',
+                hourCycle: 'h12'
+            });
+        }
+
+        function resetClock() {
+            if (clockInterval) clearInterval(clockInterval); // Clear the interval
+            document.getElementById('time').innerHTML = '00:00:00';
+        }
+    </script>
+
+
+       
+</body>
+</html>
